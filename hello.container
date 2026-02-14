@@ -1,0 +1,20 @@
+[Unit]
+Description=HTL Lab - Hello Forever (Quadlet container)
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+# A tiny image that starts fast
+Image=docker.io/library/alpine:3.20
+
+# Run "forever" (keeps container alive)
+Command=/bin/sh -c "echo '[hello-forever] started'; trap : TERM INT; sleep infinity & wait"
+
+# Nice-to-have settings
+Name=hello-forever
+AutoUpdate=registry
+Restart=always
+LogDriver=journald
+
+[Install]
+WantedBy=default.target
